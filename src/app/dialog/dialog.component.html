@@ -1,0 +1,44 @@
+<div  id="ihsh">
+
+
+<div class="dg" mat-dialog-content style="display: flex; justify-content: center; flex-direction: column;">
+  <p>Enter your details</p>
+
+<form [formGroup]="form" (ngSubmit)="save()" class="form">
+
+  <mat-form-field class="feild" >
+    <mat-label>Name</mat-label>
+  <input aria-label="Name" matInput style="height: 20px;" id="name" [(ngModel)]="name"  formControlName="name">  
+    
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Description</mat-label>
+    <input aria-label="Description" matInput style="height: 20px;"[(ngModel)]="desc" id="desc"  formControlName="desc" >  
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Choose a date</mat-label>
+    <input matInput [matDatepicker]="picker" [(ngModel)]="date" formControlName="date">
+    <mat-hint>MM/DD/YYYY</mat-hint>
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field >
+    <mat-label for="status">Status</mat-label>
+    <mat-select aria-label="status" id="status" name="status" formControlName="status" [disabled]="disableh" [(ngModel)]="sstatus">
+      <mat-option *ngFor="let s of status" [value]="s.value" >
+        {{s.value}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <div mat-dialog-actions style="display: flex; justify-content: space-evenly;">
+    <button mat-button type="button" (click)="onNoClick()">No Thanks</button>
+    <button mat-button [mat-dialog-close]="data.animal" type="submit" cdkFocusInitial [disabled]="!form.valid">Ok</button>
+  </div>
+</form>
+
+</div>
+
+</div>

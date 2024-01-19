@@ -1,0 +1,26 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/* 
+.example-box[_ngcontent-ng-c2721114112] {
+
+    margin: 10px;
+    border: 1px solid black;
+    background: rgb(101, 157, 206);
+    border-radius: 5px;
+    border-bottom: 1px solid black;
+
+} */
+
+/* .example-list{
+    background-color: aquamarine;
+} */
+
+/* .cdk-overlay-container{
+    position: absolute;
+    top: 30vh;
+    left: 40vw;
+    z-index: 10;
+  } */
