@@ -4,3 +4,17 @@
     color: rgb(59, 59, 160);
     font-size: x-large;
 }
+
+
+.charts{
+    height: 400px;
+    width: 500px;
+}
+@media only screen and (max-width: 767px) {
+
+    .charts{
+        height: 300px;
+        width: 400px;
+    }
+
+}
