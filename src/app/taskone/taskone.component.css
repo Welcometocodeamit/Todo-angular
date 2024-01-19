@@ -2,10 +2,11 @@
     display: flex;
     justify-content: space-evenly;
     padding: 70px;
+    flex-wrap: wrap;
 }
 
 .example-container {
-    width: 400px;
+    width: 300px;
     max-width: 100%;
     margin: 0 25px 25px 0;
     display: inline-block;
@@ -70,6 +71,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
+    
   }
 
 
@@ -99,6 +101,7 @@ h2{
 .mycsslist{
   background-color: #d9dce9;
   border: 1px solid rgb(32, 91, 163);
+  /* max-width: 300px; */
   
 }
 
