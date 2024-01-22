@@ -70,7 +70,7 @@ export class TaskserviceService {
   }
    
 // Save or update data in local storage
-   saveData(name:string, desc:string, status:string, date:any){
+   saveData(name:string, desc:string, status:string, date:any, isDelete:boolean){
     let local = JSON.parse(localStorage.getItem('data'))
     let dataExist=false
     if( this.item != null ){
@@ -85,7 +85,7 @@ export class TaskserviceService {
         localStorage.setItem('data', JSON.stringify(data))
         local=JSON.parse(localStorage.getItem('data'))
       }
-      local.push({id:currentkey, name: name, desc: desc, date: date, status: status})
+      local.push({id:currentkey, name: name, desc: desc, date: date, status: status, isDelete:isDelete})
       localStorage.setItem('data', JSON.stringify(local))
       this.subject.next(false)
     }else{
@@ -148,12 +148,22 @@ export class TaskserviceService {
     let localdata = JSON.parse(localStorage.getItem('data'))
     let id = this.item.id
     let index=this.getIndex(id)
-    console.log(index)
+    // console.log(index)
     
-    index>=0?localdata.splice(index, 1):''
-    console.log(localdata)
+    // index>=0?localdata.splice(index, 1):''
+    // console.log(localdata)
+    localdata[index].isDelete=true
     localStorage.setItem('data', JSON.stringify(localdata))
     this.subject.next(true)
+  }
+
+  // Delete task from history log
+  deleteTaskPermant(){
+    let localdata = JSON.parse(localStorage.getItem('data'))
+    let newData = localdata.filter((data) => !data.isDelete);
+    localStorage.setItem('data', JSON.stringify(newData));
+    this.subject.next(true)
+
   }
 
 

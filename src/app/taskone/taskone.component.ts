@@ -76,13 +76,13 @@ export class TaskoneComponent implements AfterViewInit{
     this.list3=[]
     this.list4=[]
     storedData.map((data) => {
-      if(data.status=='todo'){
+      if(data.status=='todo' && data.isDelete==false){
         this.list1.push(data);
-      }else if(data.status=='inprocess'){
+      }else if(data.status=='inprocess' && data.isDelete==false){
         this.list2.push(data);
-      }else if(data.status=='validation'){
+      }else if(data.status=='validation' && data.isDelete==false){
         this.list3.push(data);
-      }else if(data.status=='complete'){
+      }else if(data.status=='complete' && data.isDelete==false){
         this.list4.push(data);
       }
       

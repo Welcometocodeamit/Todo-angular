@@ -16,13 +16,13 @@ export class ChartServiceService {
     let validation=0
     let complete=0
     localdata.map((data)=>{
-      if(data.status=='todo'){
+      if(data.status=='todo' && data.isDelete==false){
         todo++
-      }else if(data.status=='inprocess'){
+      }else if(data.status=='inprocess' && data.isDelete==false){
         inprocess++
-      }else if(data.status=='validation'){
+      }else if(data.status=='validation' && data.isDelete==false){
         validation++
-      }else{
+      }else if(data.status=='complete' && data.isDelete==false){
         complete++
       }
     })

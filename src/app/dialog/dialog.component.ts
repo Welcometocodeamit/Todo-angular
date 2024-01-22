@@ -38,6 +38,7 @@ export class DialogComponent {
   desc:any = this.taskservice.item!=null?this.taskservice.item.desc:''
   date:Date = this.taskservice.item!=null?this.taskservice.item.date:''
   sstatus:any = this.taskservice.item!=null?this.taskservice.item.status:''
+  isDelete:boolean=false
   
   onNoClick(): void {
     this.dialogRef.close();
@@ -46,7 +47,7 @@ export class DialogComponent {
   submitbtn:boolean
 
   save(){
-    this.taskservice.saveData(this.form.value.name, this.form.value.desc, this.form.value.status, this.form.value.date)
+    this.taskservice.saveData(this.form.value.name, this.form.value.desc, this.form.value.status, this.form.value.date, this.isDelete)
   }
 
 

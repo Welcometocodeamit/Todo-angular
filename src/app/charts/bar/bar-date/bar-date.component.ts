@@ -72,6 +72,10 @@ export class BarDateComponent {
 
   }
 
+  deletePermanant(){
+    this.todoservice.deleteTaskPermant()
+  }
+
   
 
 }
