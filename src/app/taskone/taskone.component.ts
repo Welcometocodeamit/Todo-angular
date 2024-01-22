@@ -39,20 +39,9 @@ export class TaskoneComponent implements AfterViewInit{
 
   ngOnInit(){
     this.taskservice.subject.asObservable().subscribe((data)=>{
-      // if(this.list1){
-      //   let d= JSON.parse(localStorage.getItem('data'))
-      //   let k = JSON.parse(localStorage.getItem('key'))
-      //   d.filter((d)=>{
-      //     if(d.id==k){
-      //       this.list1.push(`name: ${d.name}, desc: ${d.desc}`)
-      //     }
-      //   })
-
-      // }else{
-        // console.log('data from main ')
+ 
         this.gfh=data
         this.filterData()
-      // }
       this.showEditButton=false
       this.deletebtn=false
     })
@@ -85,8 +74,6 @@ export class TaskoneComponent implements AfterViewInit{
       }else if(data.status=='complete' && data.isDelete==false){
         this.list4.push(data);
       }
-      
-      // console.log(data.name);
     });
 
   }}
@@ -105,11 +92,9 @@ export class TaskoneComponent implements AfterViewInit{
         event.previousIndex,
         event.currentIndex,
       );
-      // this.taskservice.subject.next(true)
       
       let containerId=event.container.element.nativeElement.id
       let data = event.container.data
-      // console.log(event.container.data)
       this.taskservice.changeStatus(containerId, data)
     }
   }
@@ -126,7 +111,6 @@ export class TaskoneComponent implements AfterViewInit{
     if(this.taskservice.item.status=='complete'){
       this.deletebtn=true
     }
-    // console.log(item)
   }
 
  
@@ -136,7 +120,6 @@ export class TaskoneComponent implements AfterViewInit{
 
   openDialog1(): void {
 
-    // this.taskservice.nameShow
     
 
     const dialogRef = this.dialog.open(DialogComponent, {
@@ -144,7 +127,6 @@ export class TaskoneComponent implements AfterViewInit{
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      // console.log('The dialog was closed');
       this.animal = result;
 
     });
@@ -161,7 +143,6 @@ export class TaskoneComponent implements AfterViewInit{
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      // console.log('The dialog was closed');
       this.animal = result;
     });
   }

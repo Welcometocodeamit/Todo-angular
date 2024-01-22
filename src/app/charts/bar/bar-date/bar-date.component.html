@@ -2,5 +2,5 @@
    
     <h2 class="heading1">History log</h2>
     <canvas id="bar"></canvas><br>
-    <button mat-flat-button color="primary" (click)="deletePermanant()">Clear past history</button>
+    <button mat-flat-button color="primary" (click)="deletePermanant()" [disabled]="clearHistory">Clear past history</button>
 </div>

@@ -35,7 +35,6 @@ export class TaskserviceService {
     } 
     let length = ld.length-1
     key = ld[length].id
-    console.log(key)
     return key
   }
 
@@ -89,7 +88,6 @@ export class TaskserviceService {
       localStorage.setItem('data', JSON.stringify(local))
       this.subject.next(false)
     }else{
-      console.log('data exist')
       let i = this.getIndex(this.item.id)
       local[i].name=name
       local[i].date=date
@@ -148,10 +146,7 @@ export class TaskserviceService {
     let localdata = JSON.parse(localStorage.getItem('data'))
     let id = this.item.id
     let index=this.getIndex(id)
-    // console.log(index)
-    
-    // index>=0?localdata.splice(index, 1):''
-    // console.log(localdata)
+
     localdata[index].isDelete=true
     localStorage.setItem('data', JSON.stringify(localdata))
     this.subject.next(true)

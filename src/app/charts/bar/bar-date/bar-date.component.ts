@@ -15,12 +15,19 @@ export class BarDateComponent {
 
   ngOnInit(){
     this.todoservice.subject.asObservable().subscribe((data)=>{
+    let localdata = JSON.parse(localStorage.getItem('data'))
+    let newData = localdata.filter((data) => data.isDelete);
+    if(newData.length>0){
+      this.clearHistory=false
+    }else{
+      this.clearHistory=true
+    }
       this.RenderChart('bar', 'bar')
     })
     this.RenderChart('bar', 'bar')
   }
 
-
+  clearHistory:boolean=false
   mainData:any=[]
   labels:any=[]
 
