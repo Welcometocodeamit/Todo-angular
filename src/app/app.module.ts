@@ -16,8 +16,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { DeleteComponentComponent } from './delete-component/delete-component.component';
 import { ChartsComponent } from './charts/charts.component';
 import { BarComponent } from './charts/bar/bar.component';
-import { PieComponent } from './charts/pie/pie.component';
-import { LineComponent } from './charts/line/line.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import { BarDateComponent } from './charts/bar/bar-date/bar-date.component';
@@ -29,6 +27,7 @@ import { AuthGuardService } from './auth-guard.service';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { NavbarComponent } from './navbar/navbar.component';
 import { RegisterComponent } from './register/register.component';
+import { PieTaskComponent } from './charts/bar/pie-task/pie-task.component';
 
 export const routes:Routes=[
   {path:'', component:LoginComponent},
@@ -46,12 +45,11 @@ export const routes:Routes=[
     DeleteComponentComponent,
     ChartsComponent,
     BarComponent,
-    PieComponent,
-    LineComponent,
     BarDateComponent,
     LoginComponent,
     NavbarComponent,
-    RegisterComponent
+    RegisterComponent,
+    PieTaskComponent
   ],
   imports: [
     BrowserModule,

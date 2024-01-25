@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LineComponent } from './line.component';
+import { PieTaskComponent } from './pie-task.component';
 
-describe('LineComponent', () => {
-  let component: LineComponent;
-  let fixture: ComponentFixture<LineComponent>;
+describe('PieTaskComponent', () => {
+  let component: PieTaskComponent;
+  let fixture: ComponentFixture<PieTaskComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [LineComponent]
+      declarations: [PieTaskComponent]
     });
-    fixture = TestBed.createComponent(LineComponent);
+    fixture = TestBed.createComponent(PieTaskComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

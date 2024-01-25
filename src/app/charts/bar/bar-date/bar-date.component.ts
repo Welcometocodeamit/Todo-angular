@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ChartServiceService } from '../../chart-service.service';
 import { TaskserviceService } from 'src/app/taskservice.service';
 import { Chart } from 'chart.js';
@@ -12,9 +12,11 @@ export class BarDateComponent {
 
   constructor(private service:ChartServiceService, private todoservice:TaskserviceService){}
 
-
+ @Input() receivedData:any
+ 
   ngOnInit(){
     this.todoservice.subject.asObservable().subscribe((data)=>{
+    this.setData()
     let localdata = JSON.parse(localStorage.getItem('data'))
     let newData = localdata.filter((data) => data.isDelete);
     if(newData.length>0){
@@ -24,6 +26,7 @@ export class BarDateComponent {
     }
       this.RenderChart('bar', 'bar')
     })
+    this.setData()
     this.RenderChart('bar', 'bar')
   }
 
@@ -32,8 +35,9 @@ export class BarDateComponent {
   labels:any=[]
 
   setData(){
-    let data = this.service.getDataBar()
-    data.map((data)=>{
+    this.mainData=[]
+    this.labels=[]
+    this.receivedData.map((data)=>{
       let simpleDate = new Date(data.date).toLocaleDateString();
       this.labels.push(simpleDate)
       this.mainData.push(data.statusCount)

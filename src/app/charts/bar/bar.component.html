@@ -1,12 +1,9 @@
 
 <div style="display: flex; justify-content: space-evenly; flex-wrap: wrap;" class="chartss">
-    <div class="m2" >
-        
-        <h2 class="heading1">Todo Status</h2>
-        <canvas id="pie"></canvas>
-    </div>
+    
+    <app-pie-task [receivedData]="receivedDataPie"></app-pie-task>
 
-    <app-bar-date style=" padding: 40px 0px;"></app-bar-date>
+    <app-bar-date [receivedData]="receivedDataBar" style=" padding: 40px 0px;"></app-bar-date>
 
 </div>
 
