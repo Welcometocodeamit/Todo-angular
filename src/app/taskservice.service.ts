@@ -67,11 +67,14 @@ export class TaskserviceService {
     })
     return d
   }
+
+  uid:number | null | undefined=JSON.parse(localStorage.getItem('uid'))
    
 // Save or update data in local storage
    saveData(name:string, desc:string, status:string, date:any, isDelete:boolean){
     let local = JSON.parse(localStorage.getItem('data'))
     let dataExist=false
+    this.uid=JSON.parse(localStorage.getItem('uid'))
     if( this.item != null ){
        dataExist = this.dataExist(this.item.name, local)
     }
@@ -84,7 +87,7 @@ export class TaskserviceService {
         localStorage.setItem('data', JSON.stringify(data))
         local=JSON.parse(localStorage.getItem('data'))
       }
-      local.push({id:currentkey, name: name, desc: desc, date: date, status: status, isDelete:isDelete})
+      local.push({id:currentkey, name: name, desc: desc, date: date, status: status, isDelete:isDelete, uid:this.uid})
       localStorage.setItem('data', JSON.stringify(local))
       this.subject.next(false)
     }else{
@@ -102,14 +105,14 @@ export class TaskserviceService {
 
 // Extract status from container
   determineStatus(containerId){
-    let status 
-    if(containerId=='cdk-drop-list-0'){
+    let status
+    if(containerId=='1'){
       status='todo'
-    }else if(containerId=='cdk-drop-list-1'){
+    }else if(containerId=='2'){
       status='inprocess'
-    }else if(containerId=='cdk-drop-list-2'){
+    }else if(containerId=='3'){
       status='validation'
-    }else if(containerId == 'cdk-drop-list-3'){
+    }else if(containerId == '4'){
       status='complete'
     }
     return status

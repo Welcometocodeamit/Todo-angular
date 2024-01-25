@@ -26,9 +26,9 @@
       </div>
 
 
-      <div cdkDropList #list1List="cdkDropList" [cdkDropListData]="list1"
+      <div cdkDropList  #list1List="cdkDropList" [cdkDropListData]="list1"
         [cdkDropListConnectedTo]="[list2List, list3List, list4List]" class="example-list mycsslist" 
-        (cdkDropListDropped)="drop($event)">
+        (cdkDropListDropped)="drop($event)" id="1">
         <div *ngFor="let item of list1" (click)="handleOnClick(item)" class="example-box mycss"
           style="border: 1px solid black;" cdkDrag>
 
@@ -48,7 +48,7 @@
 
       <div cdkDropList #list2List="cdkDropList" [cdkDropListData]="list2"
         [cdkDropListConnectedTo]="[list1List, list3List, list4List]" class="example-list mycsslist" 
-        (cdkDropListDropped)="drop($event)">
+        (cdkDropListDropped)="drop($event)" id="2">
         <div *ngFor="let item of list2" (click)="handleOnClick(item)" class="example-box mycss"
           style="border: 1px solid black;" cdkDrag>
           <div>
@@ -67,7 +67,7 @@
 
         <div cdkDropList #list3List="cdkDropList" [cdkDropListData]="list3"
           [cdkDropListConnectedTo]="[list1List, list2List, list4List]" class="example-list mycsslist"
-          (cdkDropListDropped)="drop($event)">
+          (cdkDropListDropped)="drop($event)" id="3">
           <div *ngFor="let item of list3" (click)="handleOnClick(item)" class="example-box mycss"
             style="border: 1px solid black;" cdkDrag>
             <div >
@@ -87,7 +87,7 @@
 
         <div cdkDropList #list4List="cdkDropList" [cdkDropListData]="list4"
           [cdkDropListConnectedTo]="[list1List, list2List, list3List]" class="example-list mycsslist"
-          (cdkDropListDropped)="drop($event)">
+          (cdkDropListDropped)="drop($event)" id="4">
           <div *ngFor="let item of list4" (click)="handleOnClick(item)" class="example-box mycss"
             style="border: 1px solid black;" cdkDrag>
             <div >
@@ -106,6 +106,10 @@
 
 
     </div>
+
+
+    <br><br><br><br>
+    <app-charts></app-charts>
 
 
 

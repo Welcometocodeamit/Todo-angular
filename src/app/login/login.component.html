@@ -1,0 +1,21 @@
+<div class="example-container login mt-5 mx-5 my-5  log" *ngIf="!logged">
+    <mat-form-field>
+        <mat-label>Username</mat-label>
+        <input matInput  #username>
+    </mat-form-field>
+
+
+    <mat-form-field>
+      <mat-label>Enter your password</mat-label>
+      <input matInput [type]="hide ? 'password' : 'text'" #password>
+      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <button mat-flat-button color="primary" (click)="submit()">Login</button>
+  </div>
+
+  <div class="container mt-5 mx-5 my-5" *ngIf="logged">
+    <button mat-flat-button color="warn" (click)="logOut()">Logout</button>
+  </div>

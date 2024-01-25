@@ -57,7 +57,7 @@ export class TaskoneComponent implements AfterViewInit{
 
   filterData(){
     const storedDataString = localStorage.getItem('data');
-  
+    let uid = JSON.parse(localStorage.getItem('uid'))
     if (storedDataString) {
     const storedData = JSON.parse(storedDataString);
     this.list1=[]
@@ -65,13 +65,13 @@ export class TaskoneComponent implements AfterViewInit{
     this.list3=[]
     this.list4=[]
     storedData.map((data) => {
-      if(data.status=='todo' && data.isDelete==false){
+      if(data.status=='todo' && data.isDelete==false && data.uid==uid){
         this.list1.push(data);
-      }else if(data.status=='inprocess' && data.isDelete==false){
+      }else if(data.status=='inprocess' && data.isDelete==false && data.uid==uid){
         this.list2.push(data);
-      }else if(data.status=='validation' && data.isDelete==false){
+      }else if(data.status=='validation' && data.isDelete==false && data.uid==uid){
         this.list3.push(data);
-      }else if(data.status=='complete' && data.isDelete==false){
+      }else if(data.status=='complete' && data.isDelete==false && data.uid==uid){
         this.list4.push(data);
       }
     });
@@ -92,7 +92,6 @@ export class TaskoneComponent implements AfterViewInit{
         event.previousIndex,
         event.currentIndex,
       );
-      
       let containerId=event.container.element.nativeElement.id
       let data = event.container.data
       this.taskservice.changeStatus(containerId, data)

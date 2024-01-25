@@ -11,18 +11,19 @@ export class ChartServiceService {
   //filter Data for pie chart
   getData(){
     let localdata = JSON.parse(localStorage.getItem('data'))
+    let uid = JSON.parse(localStorage.getItem('uid'))
     let todo=0
     let inprocess=0
     let validation=0
     let complete=0
     localdata.map((data)=>{
-      if(data.status=='todo' && data.isDelete==false){
+      if(data.status=='todo' && data.isDelete==false && data.uid==uid){
         todo++
-      }else if(data.status=='inprocess' && data.isDelete==false){
+      }else if(data.status=='inprocess' && data.isDelete==false && data.uid==uid){
         inprocess++
-      }else if(data.status=='validation' && data.isDelete==false){
+      }else if(data.status=='validation' && data.isDelete==false && data.uid==uid){
         validation++
-      }else if(data.status=='complete' && data.isDelete==false){
+      }else if(data.status=='complete' && data.isDelete==false && data.uid==uid){
         complete++
       }
     })
@@ -35,6 +36,8 @@ export class ChartServiceService {
   //filter Data for Date bar chart
   getDataBar(){
     let localdata = JSON.parse(localStorage.getItem('data'))
+    let uid = JSON.parse(localStorage.getItem('uid'))
+    localdata=localdata.filter((data)=>data.uid==uid)
     localdata.forEach((item) => {
       item.date = new Date(item.date);
     });

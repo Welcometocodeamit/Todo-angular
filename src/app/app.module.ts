@@ -21,6 +21,22 @@ import { LineComponent } from './charts/line/line.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import { BarDateComponent } from './charts/bar/bar-date/bar-date.component';
+import { LoginComponent } from './login/login.component';
+import {MatIconModule} from '@angular/material/icon';
+import { Route, RouterModule, Routes } from '@angular/router';
+import { AuthGuardService } from './auth-guard.service';
+
+import {MatToolbarModule} from '@angular/material/toolbar';
+import { NavbarComponent } from './navbar/navbar.component';
+import { RegisterComponent } from './register/register.component';
+
+export const routes:Routes=[
+  {path:'', component:LoginComponent},
+  {path:'Login', component:LoginComponent},
+  {path:'Home', component:TaskoneComponent, canActivate:[AuthGuardService]},
+  {path:'Register', component:RegisterComponent},
+  {path:'**', component:LoginComponent}
+]
 
 @NgModule({
   declarations: [
@@ -33,6 +49,9 @@ import { BarDateComponent } from './charts/bar/bar-date/bar-date.component';
     PieComponent,
     LineComponent,
     BarDateComponent,
+    LoginComponent,
+    NavbarComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +65,13 @@ import { BarDateComponent } from './charts/bar/bar-date/bar-date.component';
     FormsModule,
     ReactiveFormsModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatIconModule,
+    MatToolbarModule,
+    RouterModule.forRoot(routes)
+  ],
+  exports:[
+    RouterModule
   ],
   providers: [],
   bootstrap: [AppComponent]
