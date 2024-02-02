@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
+import { TaskModel } from './Models/Task';
+import { HttpServiceService } from './http-service.service';
 
 @Injectable({
   providedIn: 'root'
@@ -7,19 +9,27 @@ import { BehaviorSubject, Subject } from 'rxjs';
 export class TaskserviceService {
 
 
-  constructor() {
+  constructor(private http:HttpServiceService) {
 
 
-    const data = [];
+    // const data = [];
 
-    if(localStorage.getItem('data') == null){
-      localStorage.setItem('data', JSON.stringify(data))
-    }
+    // if(localStorage.getItem('data') == null){
+    //   localStorage.setItem('data', JSON.stringify(data))
+    // }
     
     
   }
 
-  item:any
+
+  // backendData
+  bData=[]
+  
+
+
+
+
+  item:TaskModel=null
 
   subject = new BehaviorSubject<boolean>(false)
   subject2 = new BehaviorSubject<boolean>(false)
@@ -70,34 +80,73 @@ export class TaskserviceService {
 
   uid:number | null | undefined=JSON.parse(localStorage.getItem('uid'))
    
-// Save or update data in local storage
-   saveData(name:string, desc:string, status:string, date:any, isDelete:boolean){
-    let local = JSON.parse(localStorage.getItem('data'))
-    let dataExist=false
-    this.uid=JSON.parse(localStorage.getItem('uid'))
-    if( this.item != null ){
-       dataExist = this.dataExist(this.item.name, local)
+// Save or update data in database
+   saveData(task:TaskModel){
+    // database logic
+    if(this.item == null){
+      const taskJsonString = JSON.stringify(task);
+    this.http.addTask(taskJsonString).subscribe((data)=>{
+      this.http.getTask().subscribe((data:any)=>{
+        this.bData=data
+        this.subject.next(false)
+      })
+    },
+    (err)=>{
+      this.http.getTask().subscribe((data:any)=>{
+        this.bData=data
+        this.subject.next(false)
+      })
+    })
+    }else{
+
+      task.taskId=this.item.taskId
+      task.status=this.item.status
+      this.http.updateTask(task).subscribe((data)=>{
+        this.http.getTask().subscribe((data:any)=>{
+          this.bData=data
+          this.subject.next(false)
+        })
+      },
+      (err)=>{
+        this.http.getTask().subscribe((data:any)=>{
+          this.bData=data
+          this.subject.next(false)
+        })
+      })
+
     }
+    
+
+    
+
+
+
+    // let local = JSON.parse(localStorage.getItem('data'))
+    // let dataExist=false
+    // this.uid=JSON.parse(localStorage.getItem('uid'))
+    // if( this.item != null ){
+    //    dataExist = this.dataExist(this.item.name, local)
+    // }
    
 
-    if(!dataExist){
-      let currentkey = this.getkey()+1
-      if(local==null){
-        let data=[]
-        localStorage.setItem('data', JSON.stringify(data))
-        local=JSON.parse(localStorage.getItem('data'))
-      }
-      local.push({id:currentkey, name: name, desc: desc, date: date, status: status, isDelete:isDelete, uid:this.uid})
-      localStorage.setItem('data', JSON.stringify(local))
-      this.subject.next(false)
-    }else{
-      let i = this.getIndex(this.item.id)
-      local[i].name=name
-      local[i].date=date
-      local[i].desc=desc
-      localStorage.setItem('data', JSON.stringify(local))
-      this.subject.next(true)
-    }
+    // if(!dataExist){
+    //   let currentkey = this.getkey()+1
+    //   if(local==null){
+    //     let data=[]
+    //     localStorage.setItem('data', JSON.stringify(data))
+    //     local=JSON.parse(localStorage.getItem('data'))
+    //   }
+    //   local.push({id:currentkey, name: name, desc: desc, date: date, status: status, isDelete:isDelete, uid:this.uid})
+    //   localStorage.setItem('data', JSON.stringify(local))
+    //   this.subject.next(false)
+    // }else{
+    //   let i = this.getIndex(this.item.id)
+    //   local[i].name=name
+    //   local[i].date=date
+    //   local[i].desc=desc
+    //   localStorage.setItem('data', JSON.stringify(local))
+    //   this.subject.next(true)
+    // }
     
    }
 
@@ -122,45 +171,100 @@ export class TaskserviceService {
 
 // Change status 
   changeStatus(containerId, data){
-    let status =this.determineStatus(containerId)
-    let localdata = JSON.parse(localStorage.getItem('data'))
-    data.map((d)=>{
-      let fdata = d.name
-      let ddata=d.desc
-
-      localdata.map((data)=>{
-        let ldata = data.name
-        let dldata=data.desc
-        if(fdata.match(ldata) && ddata.match(dldata) ){
-          
-          if(data.status!=status){
-            data.status=status
-            localStorage.setItem('data', JSON.stringify(localdata))
-          }
-        }
+    let status = this.determineStatus(containerId)
+    let fdata=data.filter((data)=>data.status!=status)
+    let taskId=fdata[0].taskId
+    this.http.changeStatus(taskId, status).subscribe((data)=>{
+      this.http.getTask().subscribe((data:any)=>{
+        this.bData=data
+        this.subject.next(false)
       })
-     
+    },
+    (err)=>{
+      this.http.getTask().subscribe((data:any)=>{
+        this.bData=data
+        this.subject.next(false)
+      })
     })
-    this.subject.next(true)
+
+
+
+    // let localdata = JSON.parse(localStorage.getItem('data'))
+    // data.map((d)=>{
+    //   let fdata = d.name
+    //   let ddata=d.desc
+
+    //   localdata.map((data)=>{
+    //     let ldata = data.name
+    //     let dldata=data.desc
+    //     if(fdata.match(ldata) && ddata.match(dldata) ){
+          
+    //       if(data.status!=status){
+    //         data.status=status
+    //         localStorage.setItem('data', JSON.stringify(localdata))
+    //       }
+    //     }
+    //   })
+     
+    // })
+    // this.subject.next(true)
    }
 
-// Delete task
+// Delete task temporary
   deleteTask(){
-    let localdata = JSON.parse(localStorage.getItem('data'))
-    let id = this.item.id
-    let index=this.getIndex(id)
 
-    localdata[index].isDelete=true
-    localStorage.setItem('data', JSON.stringify(localdata))
-    this.subject.next(true)
+
+    this.http.deleteTask(this.item.taskId).subscribe((data)=>{
+      this.http.getTask().subscribe((data:any)=>{
+        this.bData=data
+        this.subject.next(false)
+      })
+    },
+    (err)=>{
+      this.http.getTask().subscribe((data:any)=>{
+        this.bData=data
+        this.subject.next(false)
+      })
+    })
+
+    // let localdata = JSON.parse(localStorage.getItem('data'))
+    // let id = this.item.taskId
+    // let index=this.getIndex(id)
+
+    // localdata[index].isDelete=true
+    // localStorage.setItem('data', JSON.stringify(localdata))
+    // this.subject.next(true)
   }
+
+
 
   // Delete task from history log
   deleteTaskPermant(){
-    let localdata = JSON.parse(localStorage.getItem('data'))
-    let newData = localdata.filter((data) => !data.isDelete);
-    localStorage.setItem('data', JSON.stringify(newData));
-    this.subject.next(true)
+    this.http.deleteTaskPermanantaly().subscribe((data)=>{
+      this.http.getTask().subscribe((data:any)=>{
+        this.bData=data
+        this.subject.next(false)
+      })
+    },
+    (err)=>{
+      this.http.getTask().subscribe((data:any)=>{
+        if(data == null){
+          this.bData=[]
+        }else{
+          this.bData=data
+        }
+        
+        this.subject.next(true)
+      })
+    })
+
+
+
+
+    // let localdata = JSON.parse(localStorage.getItem('data'))
+    // let newData = localdata.filter((data) => !data.isDelete);
+    // localStorage.setItem('data', JSON.stringify(newData));
+    // this.subject.next(true)
 
   }
 

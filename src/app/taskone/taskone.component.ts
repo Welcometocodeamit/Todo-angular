@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
 import { TaskserviceService } from '../taskservice.service';
 import { DeleteComponentComponent } from '../delete-component/delete-component.component';
+import { HttpServiceService } from '../http-service.service';
 
 
 @Component({
@@ -19,7 +20,7 @@ import { DeleteComponentComponent } from '../delete-component/delete-component.c
 })
 export class TaskoneComponent implements AfterViewInit{
 
-  constructor(public dialog: MatDialog, private taskservice:TaskserviceService) {}
+  constructor(public dialog: MatDialog, private taskservice:TaskserviceService, private http:HttpServiceService) {}
   ngAfterViewInit(): void {
     
   }
@@ -39,11 +40,18 @@ export class TaskoneComponent implements AfterViewInit{
 
   ngOnInit(){
     this.taskservice.subject.asObservable().subscribe((data)=>{
+
+      
  
-        this.gfh=data
-        this.filterData()
+    this.gfh=data
+    this.filterData()
       this.showEditButton=false
       this.deletebtn=false
+    })
+
+    this.http.getTask().subscribe((data:any)=>{
+      this.taskservice.bData=data
+      this.taskservice.subject.next(true)
     })
 
     this.filterData()
@@ -56,22 +64,22 @@ export class TaskoneComponent implements AfterViewInit{
 
 
   filterData(){
-    const storedDataString = localStorage.getItem('data');
+    const storedData = this.taskservice.bData;
     let uid = JSON.parse(localStorage.getItem('uid'))
-    if (storedDataString) {
-    const storedData = JSON.parse(storedDataString);
+    if (storedData) {
+    // const storedData = JSON.parse(storedDataString);
     this.list1=[]
     this.list2=[]
     this.list3=[]
     this.list4=[]
     storedData.map((data) => {
-      if(data.status=='todo' && data.isDelete==false && data.uid==uid){
+      if(data.status=='todo' && data.delete==false){
         this.list1.push(data);
-      }else if(data.status=='inprocess' && data.isDelete==false && data.uid==uid){
+      }else if(data.status=='inprocess' && data.delete==false){
         this.list2.push(data);
-      }else if(data.status=='validation' && data.isDelete==false && data.uid==uid){
+      }else if(data.status=='validation' && data.delete==false){
         this.list3.push(data);
-      }else if(data.status=='complete' && data.isDelete==false && data.uid==uid){
+      }else if(data.status=='complete' && data.delete==false){
         this.list4.push(data);
       }
     });

@@ -35,15 +35,13 @@ export class PieTaskComponent {
     })
   }
 
+
   
   RenderChart(id, chart){
     Chart.defaults.borderColor = 'rgb(190, 204, 216)';
     Chart.defaults.font.family="'Helvetica Neue', 'Helvetica', 'Arial', sans-serif"
     Chart.defaults.font.weight='bold'
 
-    // this.mainData=[]
-    // this.labels=[]
-    // this.setData()
 
     const existingChart = Chart.getChart(chart);
 
@@ -57,17 +55,10 @@ export class PieTaskComponent {
       datasets: [{
         label: 'Tasks',
         data: this.mainData,
-        
         borderWidth: 1
       }]
     },
-    options: {
-      // scales: {
-      //   y: {
-      //     beginAtZero: true
-      //   }
-      // }
-    }
+    options: {}
   });
 
   }

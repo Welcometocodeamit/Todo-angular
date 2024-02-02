@@ -28,6 +28,8 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import { NavbarComponent } from './navbar/navbar.component';
 import { RegisterComponent } from './register/register.component';
 import { PieTaskComponent } from './charts/bar/pie-task/pie-task.component';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HttpInterceptorInterceptor } from './Interceptor/http-interceptor.interceptor';
 
 export const routes:Routes=[
   {path:'', component:LoginComponent},
@@ -66,12 +68,19 @@ export const routes:Routes=[
     MatNativeDateModule,
     MatIconModule,
     MatToolbarModule,
+    HttpClientModule,
     RouterModule.forRoot(routes)
   ],
   exports:[
     RouterModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpInterceptorInterceptor,
+      multi: true,
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

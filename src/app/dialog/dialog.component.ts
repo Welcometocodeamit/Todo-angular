@@ -3,6 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { TaskserviceService } from '../taskservice.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { validateHorizontalPosition } from '@angular/cdk/overlay';
+import { TaskModel } from '../Models/Task';
 
 @Component({
   selector: 'app-dialog',
@@ -16,6 +17,7 @@ export class DialogComponent {
     private taskservice:TaskserviceService,
     private formBuilder:FormBuilder
   ) {}
+  form:FormGroup
 
   ngOnInit() {
     this.taskservice.subject.asObservable().subscribe((data)=>{
@@ -34,20 +36,31 @@ export class DialogComponent {
 
   disableh:boolean;
 
-  name:any = this.taskservice.item!=null?this.taskservice.item.name:''
-  desc:any = this.taskservice.item!=null?this.taskservice.item.desc:''
-  date:Date = this.taskservice.item!=null?this.taskservice.item.date:''
+  name:any = this.taskservice.item!=null?this.taskservice.item.taskName:''
+  desc:any = this.taskservice.item!=null?this.taskservice.item.taskDesc:''
+  date:Date = new Date(this.taskservice.item!=null?this.taskservice.item.date:'') 
   sstatus:any = this.taskservice.item!=null?this.taskservice.item.status:''
   isDelete:boolean=false
   
   onNoClick(): void {
+    this.taskservice.item=null
     this.dialogRef.close();
   }
 
   submitbtn:boolean
 
+  Task:TaskModel={taskId:null, taskName:"", 
+                  taskDesc:"", 
+                  status:"", 
+                  date:null, 
+                  isDelete:false}
+
   save(){
-    this.taskservice.saveData(this.form.value.name, this.form.value.desc, this.form.value.status, this.form.value.date, this.isDelete)
+    this.Task.taskName=this.form.value.name
+    this.Task.taskDesc=this.form.value.desc
+    this.Task.status=this.form.value.status
+    this.Task.date=this.form.value.date
+    this.taskservice.saveData(this.Task)
   }
 
 
@@ -58,7 +71,7 @@ export class DialogComponent {
     {value: 'complete'},
   ];
 
-  form:FormGroup
+ 
 
 
 }

@@ -16,5 +16,9 @@ export class DeleteComponentComponent {
     this.taskservice.deleteTask()
   }
 
-  task:string=this.taskservice.item?this.taskservice.item.name:''
+  noClick(){
+    this.taskservice.item=null
+  }
+
+  task:string=this.taskservice.item?this.taskservice.item.taskName:''
 }

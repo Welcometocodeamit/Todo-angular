@@ -17,8 +17,8 @@ export class BarDateComponent {
   ngOnInit(){
     this.todoservice.subject.asObservable().subscribe((data)=>{
     this.setData()
-    let localdata = JSON.parse(localStorage.getItem('data'))
-    let newData = localdata.filter((data) => data.isDelete);
+    let localdata = this.todoservice.bData
+    let newData = localdata.filter((data) => data.delete);
     if(newData.length>0){
       this.clearHistory=false
     }else{

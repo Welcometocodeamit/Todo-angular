@@ -1,29 +1,29 @@
 import { Injectable } from '@angular/core';
+import { TaskserviceService } from '../taskservice.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ChartServiceService {
 
-  constructor() { }
+  constructor(private taskService:TaskserviceService) { }
 
 
   //filter Data for pie chart
   getData(){
-    let localdata = JSON.parse(localStorage.getItem('data'))
-    let uid = JSON.parse(localStorage.getItem('uid'))
+    let localdata = this.taskService.bData
     let todo=0
     let inprocess=0
     let validation=0
     let complete=0
     localdata.map((data)=>{
-      if(data.status=='todo' && data.isDelete==false && data.uid==uid){
+      if(data.status=='todo' && data.delete==false){
         todo++
-      }else if(data.status=='inprocess' && data.isDelete==false && data.uid==uid){
+      }else if(data.status=='inprocess' && data.delete==false){
         inprocess++
-      }else if(data.status=='validation' && data.isDelete==false && data.uid==uid){
+      }else if(data.status=='validation' && data.delete==false){
         validation++
-      }else if(data.status=='complete' && data.isDelete==false && data.uid==uid){
+      }else if(data.status=='complete' && data.delete==false){
         complete++
       }
     })
@@ -35,14 +35,13 @@ export class ChartServiceService {
 
   //filter Data for Date bar chart
   getDataBar(){
-    let localdata = JSON.parse(localStorage.getItem('data'))
-    let uid = JSON.parse(localStorage.getItem('uid'))
-    localdata=localdata.filter((data)=>data.uid==uid)
+    let localdata = this.taskService.bData
+    // let uid = JSON.parse(localStorage.getItem('uid'))
+    // localdata=localdata.filter((data)=>data.uid==uid)
     localdata.forEach((item) => {
       item.date = new Date(item.date);
     });
     localdata.sort((a,b)=>b.date.getTime() - a.date.getTime())
-
     const result:{date:Date; statusCount:number}[]=[]
     
     localdata.forEach((item)=>{
