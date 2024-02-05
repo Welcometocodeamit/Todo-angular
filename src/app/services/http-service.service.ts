@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { User } from '../register/register.component';
+import { User } from '../Models/User';
 import { TaskModel } from '../Models/Task';
 
 @Injectable({
@@ -13,7 +13,7 @@ export class HttpServiceService {
   BASE_URL="http://localhost:8080"
 
   registerUser(user:User){
-    return this.http.post(`${this.BASE_URL}/user`, user)
+    return this.http.post(`${this.BASE_URL}/user`, user, {responseType:'text'})
   }
 
   loginUser(user:User){
@@ -24,16 +24,16 @@ export class HttpServiceService {
     return this.http.get(`${this.BASE_URL}/task`)
   }
 
-  addTask(task:any){
+  addTask(task:TaskModel){
     return this.http.post(`${this.BASE_URL}/task`, task)
   }
 //
-  updateTask(task:any){
+  updateTask(task:TaskModel){
     return this.http.put(`${this.BASE_URL}/task`, task)
   }
 
   changeStatus(taskId:number, status:string){
-    return this.http.patch(`${this.BASE_URL}/task/${taskId}/${status}`, {})
+    return this.http.post(`${this.BASE_URL}/task/${taskId}`, {status:status})
   }
 
   deleteTask(taskId:number){

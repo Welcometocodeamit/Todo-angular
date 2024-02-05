@@ -3,6 +3,6 @@ export interface TaskModel{
     taskName:string
     taskDesc:string
     status:string
-    date:string
-    isDelete:boolean
+    date:Date
+    delete:boolean
 }

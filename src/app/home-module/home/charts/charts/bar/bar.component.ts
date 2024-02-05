@@ -2,6 +2,8 @@ import { ChangeDetectorRef, Component } from '@angular/core';
 import {Chart, registerables} from 'node_modules/chart.js'
 import { ChartServiceService } from '../chart-service.service';
 import { TaskserviceService } from 'src/app/services/taskservice.service';
+import { PieData } from 'src/app/Models/PieData';
+import { BarData } from 'src/app/Models/BarData';
 Chart.register(...registerables)
 
 @Component({
@@ -23,8 +25,8 @@ export class BarComponent {
     this.receivedDataPie=this.service.getData()
   }
 
-  receivedDataPie:any
-  receivedDataBar:any
+  receivedDataPie:PieData[]
+  receivedDataBar:BarData[]
 
 
 }

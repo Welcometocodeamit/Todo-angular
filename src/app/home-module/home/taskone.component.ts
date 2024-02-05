@@ -8,9 +8,10 @@ import {
 } from '@angular/cdk/drag-drop';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from './dialog/dialog.component';
-import { TaskserviceService } from '../services/taskservice.service';
+import { TaskserviceService } from 'src/app/services/taskservice.service';
 import { DeleteComponentComponent } from './delete-component/delete-component.component';
-import { HttpServiceService } from '../services/http-service.service';
+import { HttpServiceService } from 'src/app/services/http-service.service';
+import { TaskModel } from 'src/app/Models/Task';
 
 
 @Component({
@@ -25,17 +26,10 @@ export class TaskoneComponent implements AfterViewInit{
     
   }
 
-  
   data=[]
-
-  
-  list1 = [];
-  
-
-  list2 = [];
-
+  list1=[];
+  list2=[];
   list3=[]
-
   list4=[]
 
   ngOnInit(){
@@ -49,7 +43,7 @@ export class TaskoneComponent implements AfterViewInit{
       this.deletebtn=false
     })
 
-    this.http.getTask().subscribe((data:any)=>{
+    this.http.getTask().subscribe((data:TaskModel[])=>{
       this.taskservice.bData=data
       this.taskservice.subject.next(true)
     })
@@ -65,7 +59,7 @@ export class TaskoneComponent implements AfterViewInit{
 
   filterData(){
     const storedData = this.taskservice.bData;
-    let uid = JSON.parse(localStorage.getItem('uid'))
+    // let uid = JSON.parse(localStorage.getItem('uid'))
     if (storedData) {
     // const storedData = JSON.parse(storedDataString);
     this.list1=[]

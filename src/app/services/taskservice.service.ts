@@ -23,7 +23,7 @@ export class TaskserviceService {
 
 
   // backendData
-  bData=[]
+  bData:TaskModel[]=[]
   
 
 
@@ -50,49 +50,49 @@ export class TaskserviceService {
 
   
 // Check data exist or not
-  dataExist(name:string, data){
-    let exist = false
+  // dataExist(name:string, data){
+  //   let exist = false
 
-    data.map((data)=>{
-      data.name==name
-      exist = true
-    })
+  //   data.map((data)=>{
+  //     data.name==name
+  //     exist = true
+  //   })
 
-    return exist
+  //   return exist
 
-  }
+  // }
 
 // Getting object by name
-  getDataByName(name, local){
+  // getDataByName(name, local){
 
-    let d 
+  //   let d 
 
-    local.map((data)=>{
+  //   local.map((data)=>{
     
-      if(data.name == name){
-        d=data
-      }else{
-        d=null
-      }
-    })
-    return d
-  }
+  //     if(data.name == name){
+  //       d=data
+  //     }else{
+  //       d=null
+  //     }
+  //   })
+  //   return d
+  // }
 
-  uid:number | null | undefined=JSON.parse(localStorage.getItem('uid'))
+  // uid:number | null | undefined=JSON.parse(localStorage.getItem('uid'))
    
 // Save or update data in database
    saveData(task:TaskModel){
     // database logic
     if(this.item == null){
-      const taskJsonString = JSON.stringify(task);
-    this.http.addTask(taskJsonString).subscribe((data)=>{
-      this.http.getTask().subscribe((data:any)=>{
+      // const taskJsonString = JSON.stringify(task);
+    this.http.addTask(task).subscribe((data)=>{
+      this.http.getTask().subscribe((data:TaskModel[])=>{
         this.bData=data
         this.subject.next(false)
       })
     },
     (err)=>{
-      this.http.getTask().subscribe((data:any)=>{
+      this.http.getTask().subscribe((data:TaskModel[])=>{
         this.bData=data
         this.subject.next(false)
       })
@@ -102,13 +102,13 @@ export class TaskserviceService {
       task.taskId=this.item.taskId
       task.status=this.item.status
       this.http.updateTask(task).subscribe((data)=>{
-        this.http.getTask().subscribe((data:any)=>{
+        this.http.getTask().subscribe((data:TaskModel[])=>{
           this.bData=data
           this.subject.next(false)
         })
       },
       (err)=>{
-        this.http.getTask().subscribe((data:any)=>{
+        this.http.getTask().subscribe((data:TaskModel[])=>{
           this.bData=data
           this.subject.next(false)
         })
@@ -175,13 +175,13 @@ export class TaskserviceService {
     let fdata=data.filter((data)=>data.status!=status)
     let taskId=fdata[0].taskId
     this.http.changeStatus(taskId, status).subscribe((data)=>{
-      this.http.getTask().subscribe((data:any)=>{
+      this.http.getTask().subscribe((data:TaskModel[])=>{
         this.bData=data
         this.subject.next(false)
       })
     },
     (err)=>{
-      this.http.getTask().subscribe((data:any)=>{
+      this.http.getTask().subscribe((data:TaskModel[])=>{
         this.bData=data
         this.subject.next(false)
       })
@@ -215,13 +215,13 @@ export class TaskserviceService {
 
 
     this.http.deleteTask(this.item.taskId).subscribe((data)=>{
-      this.http.getTask().subscribe((data:any)=>{
+      this.http.getTask().subscribe((data:TaskModel[])=>{
         this.bData=data
         this.subject.next(false)
       })
     },
     (err)=>{
-      this.http.getTask().subscribe((data:any)=>{
+      this.http.getTask().subscribe((data:TaskModel[])=>{
         this.bData=data
         this.subject.next(false)
       })
@@ -241,13 +241,13 @@ export class TaskserviceService {
   // Delete task from history log
   deleteTaskPermant(){
     this.http.deleteTaskPermanantaly().subscribe((data)=>{
-      this.http.getTask().subscribe((data:any)=>{
+      this.http.getTask().subscribe((data:TaskModel[])=>{
         this.bData=data
         this.subject.next(false)
       })
     },
     (err)=>{
-      this.http.getTask().subscribe((data:any)=>{
+      this.http.getTask().subscribe((data:TaskModel[])=>{
         if(data == null){
           this.bData=[]
         }else{

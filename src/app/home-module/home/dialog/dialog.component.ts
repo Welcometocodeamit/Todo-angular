@@ -1,9 +1,10 @@
 import { ChangeDetectorRef, Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { TaskserviceService } from '../../services/taskservice.service';
+import { TaskserviceService } from 'src/app/services/taskservice.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { validateHorizontalPosition } from '@angular/cdk/overlay';
-import { TaskModel } from '../../Models/Task';
+import { TaskModel } from 'src/app/Models/Task';
+import { Status } from 'src/app/Models/Status';
 
 @Component({
   selector: 'app-dialog',
@@ -36,10 +37,10 @@ export class DialogComponent {
 
   disableh:boolean;
 
-  name:any = this.taskservice.item!=null?this.taskservice.item.taskName:''
-  desc:any = this.taskservice.item!=null?this.taskservice.item.taskDesc:''
+  name:string = this.taskservice.item!=null?this.taskservice.item.taskName:''
+  desc:string = this.taskservice.item!=null?this.taskservice.item.taskDesc:''
   date:Date = new Date(this.taskservice.item!=null?this.taskservice.item.date:'') 
-  sstatus:any = this.taskservice.item!=null?this.taskservice.item.status:''
+  sstatus:string = this.taskservice.item!=null?this.taskservice.item.status:''
   isDelete:boolean=false
   
   onNoClick(): void {
@@ -53,9 +54,10 @@ export class DialogComponent {
                   taskDesc:"", 
                   status:"", 
                   date:null, 
-                  isDelete:false}
+                  delete:false}
 
   save(){
+    this.Task.taskId=0
     this.Task.taskName=this.form.value.name
     this.Task.taskDesc=this.form.value.desc
     this.Task.status=this.form.value.status
@@ -64,7 +66,7 @@ export class DialogComponent {
   }
 
 
-  status: any= [
+  status: Status[]= [
     {value: 'todo'},
     {value: 'inprocess'},
     {value: 'validation'},

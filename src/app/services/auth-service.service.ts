@@ -2,13 +2,16 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { TaskserviceService } from './taskservice.service';
+import Toastify from "toastify";
+import { User } from '../Models/User';
+import { Token } from '../Models/Token';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthServiceService {
 
-  isLoggedIn=false
+  isLoggedIn:boolean=false
   username:string
 
   private loginSubject = new BehaviorSubject<boolean>(false);
@@ -32,10 +35,10 @@ export class AuthServiceService {
 
 
   //  local login
-  logIn(data:any){
+  logIn(data:Token){
     this.username=data.username
     this.isLoggedIn=true
-    alert(`Welcome ${data.username}`)
+    // alert(`Welcome ${data.username}`)
     this.route.navigate(['/Home'])
 
     // let users=JSON.parse(localStorage.getItem('users'))
@@ -93,15 +96,15 @@ export class AuthServiceService {
     return key
   }
 
-  users:any=[]
+  // users:any=[]
 
-  registerUser(name:string, password:string){
-    if(localStorage.getItem('users')==null){
-      localStorage.setItem('users', JSON.stringify(this.users));
-    }
-    console.log(this.getkey())
-      this.users=JSON.parse(localStorage.getItem('users'))
-      this.users.push({uid:this.getkey()+1, username:name, password:password})
+  registerUser(user:User){
+    // if(localStorage.getItem('users')==null){
+    //   localStorage.setItem('users', JSON.stringify(this.users));
+    // }
+    // console.log(this.getkey())
+      // this.users=JSON.parse(localStorage.getItem('users'))
+      // this.users.push({uid:this.getkey()+1, username:name, password:password})
       // localStorage.setItem('users', JSON.stringify(this.users));
       // localStorage.setItem('loggedIn', JSON.stringify(false))
       this.isLoggedIn=false

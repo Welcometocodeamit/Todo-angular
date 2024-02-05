@@ -1,14 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TaskoneComponent } from '../home/taskone.component';
-import { DialogComponent } from '../home/dialog/dialog.component';
-import { DeleteComponentComponent } from '../home/delete-component/delete-component.component';
-import { ChartsComponent } from '../charts/charts.component';
-import { BarComponent } from '../charts/bar/bar.component';
-import { BarDateComponent } from '../charts/bar/bar-date/bar-date.component';
-import { PieTaskComponent } from '../charts/bar/pie-task/pie-task.component';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { HttpInterceptorInterceptor } from '../Interceptor/http-interceptor.interceptor';
+import { TaskoneComponent } from './home/taskone.component';
+import { DialogComponent } from './home/dialog/dialog.component';
+import { DeleteComponentComponent } from './home/delete-component/delete-component.component';
+import { ChartsComponent } from './home/charts/charts/charts.component';
+import { BarComponent } from './home/charts/charts/bar/bar.component';
+import { BarDateComponent } from './home/charts/charts/bar/bar-date/bar-date.component';
+import { PieTaskComponent } from './home/charts/charts/bar/pie-task/pie-task.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -33,8 +31,7 @@ import { AuthGuardService } from '../services/auth-guard.service';
     ChartsComponent,
     BarComponent,
     BarDateComponent,
-    PieTaskComponent,
-    
+    PieTaskComponent
   ],
   imports: [
     CommonModule,

@@ -1,20 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from '../login/login.component';
-import { TaskoneComponent } from '../home/taskone.component';
+import { LoginComponent } from '../login-module/login/login.component';
 import { AuthGuardService } from '../services/auth-guard.service';
-import { RegisterComponent } from '../register/register.component';
 
 export const routes:Routes=[
   {path:'', component:LoginComponent},
-  {path:'Login', component:LoginComponent},
+  {path:'Login', loadChildren: () => import('src/app/login-module/login-module.module').then((m) => m.LoginModuleModule),},
   {
     path: 'Home',
     loadChildren: () => import('src/app/home-module/home-module.module').then((m) => m.HomeModuleModule),
     canActivate: [AuthGuardService],
   },
-  {path:'Register', component:RegisterComponent},
+  {path:'Register', loadChildren: () => import('src/app/register-module/register-module.module').then((m) => m.RegisterModuleModule),},
   {path:'**', component:LoginComponent}
 ]
 

@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { ChartServiceService } from '../../chart-service.service';
 import { TaskserviceService } from 'src/app/services/taskservice.service';
 import {Chart, registerables} from 'node_modules/chart.js'
+import { PieData } from 'src/app/Models/PieData';
 Chart.register(...registerables)
 
 @Component({
@@ -11,7 +12,7 @@ Chart.register(...registerables)
 })
 export class PieTaskComponent {
 
-  @Input() receivedData:any
+  @Input() receivedData:PieData[]
   constructor(private service:ChartServiceService, private todoservice:TaskserviceService){}
 
   ngOnInit(){
@@ -23,8 +24,8 @@ export class PieTaskComponent {
     this.RenderChart('pie', 'pie')
   }
 
-  mainData:any=[]
-  labels:any=[]
+  mainData:number[]=[]
+  labels:string[]=[]
 
   setData(){
     this.mainData=[]

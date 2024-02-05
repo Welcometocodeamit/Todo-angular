@@ -91,9 +91,9 @@
           <div *ngFor="let item of list4" (click)="handleOnClick(item)" class="example-box mycss"
             style="border: 1px solid black;" cdkDrag>
             <div >
-              <h1 class="fm">{{item.taskName}}</h1>
-            <h3 class="fm">Details: {{item.taskDesc}}</h3>
-            <h3 class="fm">Date: {{item.date | date}}</h3>
+              <h1 class="fm"><s>{{item.taskName}}</s></h1>
+            <h3 class="fm"><s>Details: {{item.taskDesc}}</s></h3>
+            <h3 class="fm"><s>Date: {{item.date | date}}</s></h3>
             </div>
           </div>
         </div>

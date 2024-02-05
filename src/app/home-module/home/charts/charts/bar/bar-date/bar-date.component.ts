@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { ChartServiceService } from '../../chart-service.service';
 import { TaskserviceService } from 'src/app/services/taskservice.service';
 import { Chart } from 'chart.js';
+import { BarData } from 'src/app/Models/BarData';
 
 @Component({
   selector: 'app-bar-date',
@@ -12,7 +13,7 @@ export class BarDateComponent {
 
   constructor(private service:ChartServiceService, private todoservice:TaskserviceService){}
 
- @Input() receivedData:any
+ @Input() receivedData:BarData[]
  
   ngOnInit(){
     this.todoservice.subject.asObservable().subscribe((data)=>{
@@ -31,8 +32,8 @@ export class BarDateComponent {
   }
 
   clearHistory:boolean=false
-  mainData:any=[]
-  labels:any=[]
+  mainData:number[]=[]
+  labels:string[]=[]
 
   setData(){
     this.mainData=[]

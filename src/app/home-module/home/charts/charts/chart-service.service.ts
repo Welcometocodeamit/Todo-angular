@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { TaskserviceService } from '../services/taskservice.service';
+import { BarData } from 'src/app/Models/BarData';
+import { TaskserviceService } from 'src/app/services/taskservice.service';
 
 @Injectable({
   providedIn: 'root'
@@ -42,7 +43,7 @@ export class ChartServiceService {
       item.date = new Date(item.date);
     });
     localdata.sort((a,b)=>b.date.getTime() - a.date.getTime())
-    const result:{date:Date; statusCount:number}[]=[]
+    const result:BarData[]=[]
     
     localdata.forEach((item)=>{
     
