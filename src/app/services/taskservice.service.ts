@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { TaskModel } from './Models/Task';
+import { TaskModel } from '../Models/Task';
 import { HttpServiceService } from './http-service.service';
 
 @Injectable({

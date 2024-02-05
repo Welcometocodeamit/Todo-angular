@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { User } from './register/register.component';
-import { TaskModel } from './Models/Task';
+import { User } from '../register/register.component';
+import { TaskModel } from '../Models/Task';
 
 @Injectable({
   providedIn: 'root'

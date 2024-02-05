@@ -1,9 +1,9 @@
 import { ChangeDetectorRef, Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { TaskserviceService } from '../taskservice.service';
+import { TaskserviceService } from '../../services/taskservice.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { validateHorizontalPosition } from '@angular/cdk/overlay';
-import { TaskModel } from '../Models/Task';
+import { TaskModel } from '../../Models/Task';
 
 @Component({
   selector: 'app-dialog',

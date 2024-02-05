@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
 import {Chart, registerables} from 'node_modules/chart.js'
 import { ChartServiceService } from '../chart-service.service';
-import { TaskserviceService } from 'src/app/taskservice.service';
+import { TaskserviceService } from 'src/app/services/taskservice.service';
 Chart.register(...registerables)
 
 @Component({

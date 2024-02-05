@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ChartServiceService } from '../../chart-service.service';
-import { TaskserviceService } from 'src/app/taskservice.service';
+import { TaskserviceService } from 'src/app/services/taskservice.service';
 import {Chart, registerables} from 'node_modules/chart.js'
 Chart.register(...registerables)
 

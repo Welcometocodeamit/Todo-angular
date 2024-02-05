@@ -7,10 +7,10 @@ import {
   CdkDropList,
 } from '@angular/cdk/drag-drop';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogComponent } from '../dialog/dialog.component';
-import { TaskserviceService } from '../taskservice.service';
-import { DeleteComponentComponent } from '../delete-component/delete-component.component';
-import { HttpServiceService } from '../http-service.service';
+import { DialogComponent } from './dialog/dialog.component';
+import { TaskserviceService } from '../services/taskservice.service';
+import { DeleteComponentComponent } from './delete-component/delete-component.component';
+import { HttpServiceService } from '../services/http-service.service';
 
 
 @Component({

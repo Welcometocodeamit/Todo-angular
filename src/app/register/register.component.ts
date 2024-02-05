@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { AuthServiceService } from '../auth-service.service';
-import { HttpServiceService } from '../http-service.service';
+import { AuthServiceService } from '../services/auth-service.service';
+import { HttpServiceService } from '../services/http-service.service';
 
 @Component({
   selector: 'app-register',
